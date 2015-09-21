@@ -42,7 +42,7 @@ public class Main {
         imageBeans=new ArrayList<>();
         ssimQa = new SsimQa();
         ssimQa.numThreads(4);
-        File dirToCreate=new File(tmp_results_folder.getAbsolutePath().toString()+File.separator+"temporal data");
+        File dirToCreate=new File(tmp_results_folder.getAbsolutePath().toString()+File.separator+"temp_images");
         try {
             tif_folder = Files.createDirectories(dirToCreate.toPath());
         } catch (IOException e) {
@@ -67,7 +67,7 @@ public class Main {
                         String result_TIF=saveImage(result, bImage2);
                         bImage1.flush();
                         bImage2.flush();
-                        ImageBean imageBean=new ImageBean(SSIM,original.toString(),result.toString(),original_TIF, result_TIF);
+                        ImageBean imageBean=new ImageBean(SSIM, Boolean.TRUE,original.toString(),result.toString(),original_TIF, result_TIF);
                         csvWriter.write(imageBean);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -81,8 +81,8 @@ public class Main {
     csvWriter.destroy();
     }
     private String saveImage(Path original, BufferedImage bImage1) throws IOException {
-        File file=new File(tif_folder.toString() + File.separator + original.getFileName().toString()+".tif");
-        ImageIO.write(bImage1, "tif", file);
+        File file=new File(tif_folder.toString() + File.separator + original.getFileName().toString()+".png");
+        ImageIO.write(bImage1, "png", file);
         return file.getAbsolutePath();
     }
 
@@ -124,10 +124,10 @@ public class Main {
 
             TransientOperation<Float, StaticColor> op = this.ssimQa.evaluate(leftImg, rightImg);
             result = op.getResult().getChannelValue(0);
-            File leftImg_png=new File(left.getName()+".tif");
-            File rightImg_png=new File(right.getName()+".tif");
-            ImageIO.write(leftImg, "tif", leftImg_png);
-            ImageIO.write(rightImg, "tif", rightImg_png);
+            File leftImg_png=new File(left.getName()+".png");
+            File rightImg_png=new File(right.getName()+".png");
+            ImageIO.write(leftImg, "png", leftImg_png);
+            ImageIO.write(rightImg, "png", rightImg_png);
 
         } catch (IOException e1) {
             e1.printStackTrace();

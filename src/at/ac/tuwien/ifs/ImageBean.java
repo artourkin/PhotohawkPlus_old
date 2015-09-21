@@ -43,8 +43,9 @@ public class ImageBean {
     public void setSSIM(Double SSIM) {
         this.SSIM = SSIM;
     }
-    public ImageBean(Double SSIM,  String Original,String Result,String Original_TIF,String Result_TIF){
+    public ImageBean(Double SSIM, Boolean isSimilar,  String Original,String Result,String Original_TIF,String Result_TIF){
         this.SSIM=SSIM;
+        this.isSimilar= isSimilar;
         this.Original=Original;
         this.Result=Result;
         this.Original_TIF=Original_TIF;
@@ -54,5 +55,15 @@ public class ImageBean {
 
     String Original, Result, Original_TIF, Result_TIF;
     Double SSIM;
+
+    public Boolean getIsSimilar() {
+        return isSimilar;
+    }
+
+    public void setIsSimilar(Boolean isSimilar) {
+        this.isSimilar = isSimilar;
+    }
+
+    Boolean isSimilar;
 
 }

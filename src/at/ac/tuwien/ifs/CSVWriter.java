@@ -1,6 +1,7 @@
 package at.ac.tuwien.ifs;
 
 
+import org.supercsv.cellprocessor.ParseBool;
 import org.supercsv.cellprocessor.ParseDouble;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -22,7 +23,7 @@ public class CSVWriter {
     CellProcessor[] processors = getProcessors();
     public CSVWriter(File file){
         this.file=file;
-        header= new String[] { "SSIM","Original", "Result", "Original_TIF", "Result_TIF" };
+        header= new String[] { "SSIM", "isSimilar" ,"Original", "Result", "Original_PNG", "Result_PNG" };
 
         try {
             beanWriter = new CsvBeanWriter(new FileWriter(file.getAbsolutePath()),
@@ -35,11 +36,12 @@ public class CSVWriter {
     private static CellProcessor[] getProcessors() {
 
         final CellProcessor[] processors = new CellProcessor[] {
-                new ParseDouble(), // firstName
-                new NotNull(), // lastName
-                new NotNull(), // mailingAddress
-                new NotNull(), // favouriteQuote
-                new NotNull() // email
+                new ParseDouble(), // SSIM
+                new ParseBool(), // isSimilar
+                new NotNull(), // Original
+                new NotNull(), // Result
+                new NotNull(), // Original_PNG
+                new NotNull() // Result_PNG
 
         };
 
