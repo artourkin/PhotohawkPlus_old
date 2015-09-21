@@ -20,20 +20,20 @@ public class ImageBean {
         Result = result;
     }
 
-    public String getOriginal_TIF() {
-        return Original_TIF;
+    public String getOriginal_PNG() {
+        return Original_PNG;
     }
 
-    public void setOriginal_TIF(String original_TIF) {
-        Original_TIF = original_TIF;
+    public void setOriginal_PNG(String original_PNG) {
+        Original_PNG = original_PNG;
     }
 
-    public String getResult_TIF() {
-        return Result_TIF;
+    public String getResult_PNG() {
+        return Result_PNG;
     }
 
-    public void setResult_TIF(String result_TIF) {
-        Result_TIF = result_TIF;
+    public void setResult_PNG(String result_PNG) {
+        Result_PNG = result_PNG;
     }
 
     public Double getSSIM() {
@@ -43,27 +43,27 @@ public class ImageBean {
     public void setSSIM(Double SSIM) {
         this.SSIM = SSIM;
     }
-    public ImageBean(Double SSIM, Boolean isSimilar,  String Original,String Result,String Original_TIF,String Result_TIF){
+    public ImageBean(Double SSIM, String isSimilar,  String Original,String Result,String Original_PNG,String Result_PNG){
         this.SSIM=SSIM;
         this.isSimilar= isSimilar;
         this.Original=Original;
         this.Result=Result;
-        this.Original_TIF=Original_TIF;
-        this.Result_TIF=Result_TIF;
+        this.Original_PNG = Original_PNG;
+        this.Result_PNG = Result_PNG;
     }
     public ImageBean(){}
 
-    String Original, Result, Original_TIF, Result_TIF;
+    String Original, Result, Original_PNG, Result_PNG;
     Double SSIM;
 
-    public Boolean getIsSimilar() {
+    public String getIsSimilar() {
         return isSimilar;
     }
 
-    public void setIsSimilar(Boolean isSimilar) {
+    public void setIsSimilar(String isSimilar) {
         this.isSimilar = isSimilar;
     }
 
-    Boolean isSimilar;
+    String isSimilar;
 
 }

@@ -63,11 +63,11 @@ public class Main {
                         BufferedImage bImage1 = getBufferedImage(original.toFile());
                         BufferedImage bImage2 = getBufferedImage(result.toFile());
                         double SSIM=ssimQa.evaluate(bImage1, bImage2).getResult().getChannelValue(0);
-                        String original_TIF=saveImage(original, bImage1);
-                        String result_TIF=saveImage(result, bImage2);
+                        String original_PNG=saveImage(original, bImage1);
+                        String result_PNG=saveImage(result, bImage2);
                         bImage1.flush();
                         bImage2.flush();
-                        ImageBean imageBean=new ImageBean(SSIM, Boolean.TRUE,original.toString(),result.toString(),original_TIF, result_TIF);
+                        ImageBean imageBean=new ImageBean(SSIM, "True",original.toString(),result.toString(),original_PNG, result_PNG);
                         csvWriter.write(imageBean);
                     } catch (IOException e) {
                         e.printStackTrace();
