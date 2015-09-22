@@ -1,6 +1,3 @@
-package at.ac.tuwien.ifs;
-
-
 import org.supercsv.cellprocessor.ParseBool;
 import org.supercsv.cellprocessor.ParseDouble;
 import org.supercsv.cellprocessor.constraint.NotNull;

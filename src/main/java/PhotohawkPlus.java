@@ -1,9 +1,9 @@
-package at.ac.tuwien.ifs;
-
 import at.ac.tuwien.photohawk.commandline.util.ImageReader;
 import at.ac.tuwien.photohawk.evaluation.colorconverter.StaticColor;
 import at.ac.tuwien.photohawk.evaluation.operation.TransientOperation;
 import at.ac.tuwien.photohawk.evaluation.qa.SsimQa;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 
-public class Main {
+public class PhotohawkPlus {
     SsimQa ssimQa;
     ImageReader ir;
     File originals_folder,results_folder, tmp_results_folder;
@@ -26,23 +25,26 @@ public class Main {
             System.out.println("Please specify the following:/path/to/originals /path/to/results /path/to/tmp_results");
             return;
         }
-        Main m=new Main();
-        m.originals_folder=new File(args[0]);
-        m.results_folder=new File(args[1]);
-        m.tmp_results_folder=new File(args[2]);
+        PhotohawkPlus m=new PhotohawkPlus(args[0],args[1],args[2]);
 
         if (!m.originals_folder.isDirectory() || !m.results_folder.isDirectory())
             return;
         m.init();
         m.run();
-
     }
+    public PhotohawkPlus(String path_to_originals,String path_to_results,String path_to_tmp){
+        originals_folder=new File(path_to_originals);
+        results_folder=new File(path_to_results);
+        tmp_results_folder=new File(path_to_tmp);
+        init();
+    }
+
     private void init() {
         ir = new ImageReader("dcraw.ssim");
-        imageBeans=new ArrayList<>();
+        imageBeans=new ArrayList<ImageBean>();
         ssimQa = new SsimQa();
         ssimQa.numThreads(4);
-        File dirToCreate=new File(tmp_results_folder.getAbsolutePath().toString()+File.separator+"temp_images");
+        File dirToCreate=new File(tmp_results_folder.getAbsolutePath().toString()+File.separator+"images");
         try {
             tif_folder = Files.createDirectories(dirToCreate.toPath());
         } catch (IOException e) {
@@ -51,7 +53,7 @@ public class Main {
         csvWriter=new CSVWriter(new File(tmp_results_folder.toString()+File.separator+"images.csv"));
 
     }
-    private void run() {
+    public void run() {
         List<Path> originals=listFiles(originals_folder.toPath());
         List<Path> results=listFiles(results_folder.toPath());
         for (Path original: originals){
@@ -67,7 +69,7 @@ public class Main {
                         String result_PNG=saveImage(result, bImage2);
                         bImage1.flush();
                         bImage2.flush();
-                        ImageBean imageBean=new ImageBean(SSIM, "True",original.toString(),result.toString(),original_PNG, result_PNG);
+                        ImageBean imageBean=new ImageBean(SSIM, true,original.toString(),result.toString(),original_PNG, result_PNG);
                         csvWriter.write(imageBean);
                     } catch (IOException e) {
                         e.printStackTrace();

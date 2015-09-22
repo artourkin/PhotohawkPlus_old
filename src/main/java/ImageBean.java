@@ -1,5 +1,3 @@
-package at.ac.tuwien.ifs;
-
 /**
  * Created by artur on 16/09/15.
  */
@@ -43,7 +41,7 @@ public class ImageBean {
     public void setSSIM(Double SSIM) {
         this.SSIM = SSIM;
     }
-    public ImageBean(Double SSIM, String isSimilar,  String Original,String Result,String Original_PNG,String Result_PNG){
+    public ImageBean(Double SSIM, Boolean isSimilar,  String Original,String Result,String Original_PNG,String Result_PNG){
         this.SSIM=SSIM;
         this.isSimilar= isSimilar;
         this.Original=Original;
@@ -56,14 +54,14 @@ public class ImageBean {
     String Original, Result, Original_PNG, Result_PNG;
     Double SSIM;
 
-    public String getIsSimilar() {
+    public Boolean getIsSimilar() {
         return isSimilar;
     }
 
-    public void setIsSimilar(String isSimilar) {
+    public void setIsSimilar(Boolean isSimilar) {
         this.isSimilar = isSimilar;
     }
 
-    String isSimilar;
+    Boolean isSimilar;
 
 }
